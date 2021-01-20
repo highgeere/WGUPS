@@ -1,6 +1,5 @@
 from importdata import *
 from utility import sort_packages, time_convert
-from package import *
 
 prompt_text = '''
     Welcome to the WGUPS package tracking system.
