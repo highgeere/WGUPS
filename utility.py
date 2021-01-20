@@ -1,6 +1,10 @@
-# Manually sorted truck manifests
+# Manually sorted truck manifests - O(1)
 # Replace with package sorting algorithm before production
 # sorting rules:
+# Truck 1 - earliest deadlines, co-delivery requirements, ZIP proximity
+# Truck 2 - packages delayed until 9:05 with deadline by 10:30, some that
+# must be on truck 2, a couple more for ZIP proximity
+# truck 3 - Remaining packages
 def sort_packages():
     truck1 = [13, 14, 15, 16, 19, 20, 1, 37, 40, 21, 4, 26, 34]
     truck2 = [3, 18, 36, 38, 6, 25, 28, 31, 30, 29, 32, 2]
@@ -8,6 +12,9 @@ def sort_packages():
     return truck1, truck2, truck3
 
 
+# Name coule be misleading. Function does not interact with datetime objects
+# Just formats a provided number of minutes into a familiar time string - hh:mm
+# O(n)
 def time_convert(mins):
     hour = "{:02d}".format(int(mins / 60))
     minute = "{:02d}".format(mins % 60)

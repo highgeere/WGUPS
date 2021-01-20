@@ -1,49 +1,53 @@
-# HashTable class using chaining.
+# Required hash table class
+# Implemented with nested lists
 class HashTable:
-    # Constructor with optional initial capacity parameter.
-    # Assigns all buckets with an empty list.
+    # Initialize the hash table with empty buckets
+    # Use 10 buckets as default
     def __init__(self, capacity=10):
-        # initialize the hash table with empty bucket list entries.
         self.root = []
         for i in range(capacity):
             self.root.append([])
 
+    # Very basic hash function, using just the package ID as key - O(1)
     def bucket_hash(self, key):
         return key % len(self.root)
 
-    # Inserts a new item into the hashtable.
+    # Insert a new item into the hash table - O(1)
     def insert(self, key, item):
-        # get the bucket list where this item will go.
+        # Get bucket ID from hash function
         bucket = self.bucket_hash(key)
+        # Store the item in that bucket
         self.root[bucket].append(item)
 
-    # Searches for an item with matching key in the hash table.
-    # Returns the item if found, or None if not found.
+    # Search for an item by key, and return the item - O(n)
     def lookup(self, key):
-        # get the bucket item where this key would be.
+        # Get bucket ID from hash function
         bucket = self.bucket_hash(key)
         bucket_items = self.root[bucket]
 
-        # search for the key in the bucket list
+        # Look at each package object and match the search key if present
         for item in bucket_items:
             if item.package_id == key:
-                # find the item's index and return the item that is in the bucket list.
+                # Find the index and return the item at index
                 index = bucket_items.index(item)
                 return bucket_items[index]
         else:
-            # the key is not found.
             return None
 
-    # Removes an item with matching key from the hash table.
+    # Remove an item with matching key from the hash table - O(n)
     def remove(self, key):
-        # get the bucket list where this item will be removed from.
+        # Get bucket ID from hash function
         bucket = self.bucket_hash(key)
         bucket_items = self.root[bucket]
 
+        # If the item key is present in the bucket, remove the item
         for item in bucket_items:
             if item.package_id == key:
                 bucket_items.remove(item)
 
+    # Helper function to return the number of items in the hash table
+    # Used for range determination
+    # O(n)
     def table_size(self):
         count = 0
         for i in range(10):

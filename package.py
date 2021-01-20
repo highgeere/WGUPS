@@ -1,4 +1,6 @@
-#
+# Package class
+# Object to store package data for easier retrieval and passing.
+# Attributes for getting/setting and printing functions
 class Package(object):
     def __init__(self, plist):
         self.package_id = int(plist[0])
@@ -12,6 +14,7 @@ class Package(object):
         self.delivery_time = "00:00"
         self.delivery_status = "At hub"
 
+    # Print package details on multiple lines
     def print_long(self):
         print("Package ID: %i" % self.package_id)
         print("Address:  %s" % self.address)
@@ -24,6 +27,7 @@ class Package(object):
         print("Delivery Time: %s" % self.delivery_time)
         print("Status: %s" % self.delivery_status)
 
+    # Print package details on one line. Better when printing info for multiple packages
     def print_inline(self):
         print("Package ID: %i, Address:  %s, City: %s, State: %s, Zip: %s, Deadline: %s, "
               "Weight: %s, Notes: %s, Delivery Time: %s, Status: %s" %
