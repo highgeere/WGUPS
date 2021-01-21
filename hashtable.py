@@ -19,7 +19,7 @@ class HashTable:
         # Store the item in that bucket
         self.root[bucket].append(item)
 
-    # Search for an item by key, and return the item - O(n)
+    # Search for an item by key, and return the item - O(log n)
     def lookup(self, key):
         # Get bucket ID from hash function
         bucket = self.bucket_hash(key)
@@ -34,7 +34,7 @@ class HashTable:
         else:
             return None
 
-    # Remove an item with matching key from the hash table - O(n)
+    # Remove an item with matching key from the hash table - O(log n)
     def remove(self, key):
         # Get bucket ID from hash function
         bucket = self.bucket_hash(key)

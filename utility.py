@@ -6,9 +6,9 @@
 # must be on truck 2, a couple more for ZIP proximity
 # truck 3 - Remaining packages
 def sort_packages():
-    truck1 = [13, 14, 15, 16, 19, 20, 1, 37, 40, 21, 4, 26, 34]
-    truck2 = [3, 18, 36, 38, 6, 25, 28, 31, 30, 29, 32, 2]
-    truck3 = [5, 7, 8, 9, 10, 11, 12, 17, 22, 23, 24, 27, 29, 33, 35, 39]
+    truck1 = [13, 14, 15, 16, 19, 20, 1, 37, 40, 21, 4, 26, 34, 29, 30]
+    truck2 = [3, 18, 36, 38, 6, 25, 28, 31, 32, 2]
+    truck3 = [5, 7, 8, 9, 10, 11, 12, 17, 22, 23, 24, 27, 33, 35, 39]
     return truck1, truck2, truck3
 
 

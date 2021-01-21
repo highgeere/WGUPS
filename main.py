@@ -1,17 +1,8 @@
+# Scott Aylward
+# ID: 000748921
+
 from importdata import *
 from utility import sort_packages, time_convert
-
-prompt_text = '''
-    Welcome to the WGUPS package tracking system.
-    -------
-    The following functions are available:
-    - Enter 'route' to view delivery route information
-    - Enter a time(hh:mm) to retrieve all package status
-    information for that time
-    - Enter a package ID to view information for that package
-    - Enter 'quit' to exit the program
-    
-'''
 
 # Initialize main data structures and load data from CSVs
 # hash_table
@@ -29,6 +20,9 @@ travel = []
 # remaining packages and find the one closes to the current stop
 # O(n)
 def choose_next(current_location_num, truckload):
+    # Initial short route value should be greater than the largest single value
+    # in the distance matrix. Could be automated, but could also be made
+    # arbitrarily large to always be valid as a static value, e.g., 10000.00
     short_route = 20.0
     next_package = None
     next_addr_num = None
@@ -39,6 +33,7 @@ def choose_next(current_location_num, truckload):
         package = package_table.lookup(package_num)
         # Use the package address as key for address dict, and get address ID
         package_addr_num = addresses[package.address][0]
+        # get the distance between current location and package location
         # Conditional statement is only needed because the distance matrix is
         # one-sided. Consider completing the matrix before or after
         # import to avoid this if/else
@@ -56,8 +51,9 @@ def choose_next(current_location_num, truckload):
 
 
 # 'Deliver' each package from a truck and return to Hub, tracking distance and time
+# O(n^2) complexity for run_route, as it calls choose_next within a for loop
 def run_route(truck, route_time):
-    # Update package status when the truck leaves the hub
+    # Update all package status when the truck leaves the hub
     for p_id in truck:
         package = package_table.lookup(p_id)
         package.status = "En route"
@@ -88,6 +84,7 @@ def run_route(truck, route_time):
 
 # Simulate package delivery. Load packages on trucks and run each
 # truck's route at the appropriate start time
+# O(n^2) complexity from called run_route() function
 def run_sim():
     # Get truck manifests from package sorter
     t1, t2, t3 = sort_packages()
@@ -117,7 +114,20 @@ def run_sim():
 
 # Main function to kick off the simulation and control the CLI
 if __name__ == '__main__':
+    # Run the route simulation.
     run_sim()
+    # Help text for the CLI
+    prompt_text = '''
+        Welcome to the WGUPS package tracking system.
+        -------
+        The following functions are available:
+        - Enter 'route' to view delivery route information
+        - Enter a time(hh:mm) to retrieve all package status
+        information for that time
+        - Enter a package ID to view information for that package
+        - Enter 'quit' to exit the program
+
+    '''
     user_input = ''
     # Limited 'CLI' for the program
     # Consider replacing with proper CLI via argparse/optparse
